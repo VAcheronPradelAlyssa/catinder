@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-// Composant racine standalone Angular 21
+// Composant racine standalone Angular 21 pour Catinder.
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -10,17 +10,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class AppComponent {
-  // TODO: Ajouter gestion globale du thème ou du loader si besoin
-}
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
-})
-export class App {
-  protected readonly title = signal('catinder-front');
+  // Le shell racine reste volontairement léger.
 }

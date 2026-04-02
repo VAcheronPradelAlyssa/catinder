@@ -1,30 +1,26 @@
 import { Routes } from '@angular/router';
 
-// TODO: Ajouter un AuthGuard pour la route swipe si besoin
+// Routes minimales pour l’auth et l’expérience Catinder.
 export const routes: Routes = [
-	{
-		path: '',
-		redirectTo: 'login',
-		pathMatch: 'full',
-	},
-	{
-		path: 'login',
-		loadComponent: () => import('./pages/login/login').then(m => m.LoginPage),
-	},
-	{
-		path: 'register',
-		loadComponent: () => import('./pages/register/register').then(m => m.RegisterPage),
-	},
-	{
-		path: 'swipe',
-		loadComponent: () => import('./pages/swipe/swipe').then(m => m.SwipePage),
-		// canActivate: [AuthGuard], // Décommente si AuthGuard implémenté
-	},
-	{
-		path: '**',
-		redirectTo: 'login',
-	},
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login').then(m => m.Login),
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./pages/register/register').then(m => m.Register),
+  },
+  {
+    path: 'swipe',
+    loadComponent: () => import('./pages/swipe/swipe').then(m => m.Swipe),
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+  },
 ];
-import { Routes } from '@angular/router';
-
-export const routes: Routes = [];

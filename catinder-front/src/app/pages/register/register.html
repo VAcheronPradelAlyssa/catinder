@@ -1,1 +1,53 @@
-<p>register works!</p>
+<section class="auth-shell" aria-labelledby="register-title">
+	<div class="auth-card auth-card--wide">
+		<div class="auth-brand">
+			<img src="assets/logo.png" alt="Logo Catinder" class="auth-logo" />
+			<p class="eyebrow">Catinder</p>
+			<h2 id="register-title">Créer un compte</h2>
+			<p class="subtitle">Rejoins la plateforme et commence à swiper des chats.</p>
+		</div>
+
+		<form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+			<label>
+				<span>Pseudo</span>
+				<input type="text" formControlName="username" autocomplete="nickname" placeholder="MisterWhiskers" />
+			</label>
+			<p class="field-error" *ngFor="let error of usernameErrors()">{{ error }}</p>
+
+			<label>
+				<span>Email</span>
+				<input type="email" formControlName="email" autocomplete="email" placeholder="chat@catinder.io" />
+			</label>
+			<p class="field-error" *ngFor="let error of emailErrors()">{{ error }}</p>
+
+			<label>
+				<span>Mot de passe</span>
+				<input type="password" formControlName="password" autocomplete="new-password" placeholder="••••••••" />
+			</label>
+			<p class="field-error" *ngFor="let error of passwordErrors()">{{ error }}</p>
+
+			<label>
+				<span>Confirmer le mot de passe</span>
+				<input type="password" formControlName="confirmPassword" autocomplete="new-password" placeholder="••••••••" />
+			</label>
+			<p class="field-error" *ngFor="let error of confirmPasswordErrors()">{{ error }}</p>
+
+			<label class="checkbox-row">
+				<input type="checkbox" formControlName="acceptTerms" />
+				<span>J’accepte les conditions d’utilisation</span>
+			</label>
+			<p class="field-error" *ngIf="submitted() && form.controls.acceptTerms.invalid">Tu dois accepter les conditions pour continuer.</p>
+
+			<p class="server-error" *ngIf="serverError()">{{ serverError() }}</p>
+
+			<button type="submit" class="primary-button" [disabled]="isSubmitting()">
+				<span *ngIf="!isSubmitting()">Créer mon compte</span>
+				<span *ngIf="isSubmitting()">Création en cours...</span>
+			</button>
+
+			<p class="helper-text">
+				Déjà inscrit ? <a routerLink="/login">Se connecter</a>
+			</p>
+		</form>
+	</div>
+</section>
