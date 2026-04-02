@@ -12,13 +12,26 @@ export class Auth {
   private readonly storageKey = 'catinder_jwt';
 
   login(payload: LoginPayload): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.API_URL}/auth/login`, payload).pipe(
+    const backendPayload: BackendAuthRequest = {
+      // Le backend accepte login OU email; on renseigne les deux pour compatibilite maximale.
+      login: payload.email,
+      email: payload.email,
+      password: payload.password,
+    };
+
+    return this.http.post<AuthResponse>(`${environment.API_URL}/auth/login`, backendPayload).pipe(
       tap(response => this.persistSession(response.token, payload.rememberMe ?? true)),
     );
   }
 
   register(payload: RegisterPayload): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.API_URL}/auth/register`, payload).pipe(
+    const backendPayload: BackendAuthRequest = {
+      login: payload.username,
+      email: payload.email,
+      password: payload.password,
+    };
+
+    return this.http.post<AuthResponse>(`${environment.API_URL}/auth/register`, backendPayload).pipe(
       tap(response => this.persistSession(response.token, true)),
     );
   }
@@ -62,11 +75,16 @@ export interface RegisterPayload {
   password: string;
 }
 
+interface BackendAuthRequest {
+  login: string;
+  email: string;
+  password: string;
+}
+
 export interface AuthResponse {
   token: string;
-  user?: {
-    id?: string | number;
-    username?: string;
-    email?: string;
-  };
+  tokenType: string;
+  userId: string | number;
+  login: string;
+  email: string;
 }

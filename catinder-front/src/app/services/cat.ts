@@ -1,51 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Auth } from './auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private auth: Auth,
+  ) {}
 
-  // Liste cyclique des photos de profils
-  private readonly catPhotos = [
-    'assets/IMG-20221031-WA0011.jpg',
-    'assets/IMG-20221222-WA0015.jpg',
-    'assets/popotin.jpg',
-    'assets/PXL_20230301_220705296.jpg',
-  ];
-  private photoIndex = 0;
-
-  // Récupère le prochain chat à swiper (dummy cyclique)
+  // Récupère le prochain chat à swiper depuis le backend.
   getNextCat(): Observable<Cat> {
-    const photos = this.catPhotos;
-    const idx = this.photoIndex++ % photos.length;
-    const names = ['Miaou', 'Gribouille', 'Popotin', 'Pixel'];
-    const breeds = ['Européen', 'Chartreux', 'Siamois', 'Bengal'];
-    const descs = [
-      'Un chat joueur et câlin.',
-      'Adore les caresses et les boîtes.',
-      'Toujours prêt pour une sieste.',
-      'Explorateur et gourmet.',
-    ];
-    return of({
-      id: idx,
-      name: names[idx],
-      age: 1 + idx,
-      breed: breeds[idx],
-      description: descs[idx],
-      imageUrl: photos[idx],
-    });
+    return this.http
+      .get<BackendCatDto>(`${environment.API_URL}/cats/next`, { headers: this.auth.authHeaders() })
+      .pipe(
+        map(cat => ({
+          id: cat.id,
+          name: cat.name,
+          // Le backend ne fournit pas encore age/race, on conserve une UI stable.
+          age: 0,
+          breed: undefined,
+          description: cat.bio ?? '',
+          imageUrl: cat.photoUrl,
+        })),
+      );
   }
 
-  // Envoie le swipe (like/dislike)
-  swipe(catId: string | number, liked: boolean): Observable<any> {
-    // return this.http.post(`${environment.API_URL}/swipes`, { catId, liked });
-    // Dummy pour dev :
-    return of({ success: true });
+  // Envoie le swipe (like/dislike) et retourne l'eventuel match.
+  swipe(catId: string | number, liked: boolean): Observable<SwipeResponse> {
+    return this.http.post<SwipeResponse>(
+      `${environment.API_URL}/swipes`,
+      { catId, liked },
+      { headers: this.auth.authHeaders() },
+    );
   }
+}
+
+interface BackendCatDto {
+  id: string | number;
+  name: string;
+  bio?: string;
+  photoUrl?: string;
+}
+
+export interface SwipeResponse {
+  catId: string | number;
+  liked: boolean;
+  match?: boolean;
 }
 
 // Type partagé avec Swipe

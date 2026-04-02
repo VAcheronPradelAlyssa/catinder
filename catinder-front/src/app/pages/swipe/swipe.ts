@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
-import { CatService } from '../../services/cat';
+import { Component, inject, signal } from '@angular/core';
+import { Cat, CatService } from '../../services/cat';
 import { Auth } from '../../services/auth';
 
 @Component({
@@ -46,9 +46,8 @@ export class Swipe {
     if (!this.cat()) return;
     this.feedback.set(null);
     this.catService.swipe(this.cat()!.id, true).subscribe({
-      next: () => {
-        // 30% de chance d’avoir un match
-        if (Math.random() < 0.3) {
+      next: (response) => {
+        if (response.match) {
           this.match.set(true);
           this.feedback.set('MATCH ! 😻');
         } else {
@@ -84,14 +83,4 @@ export class Swipe {
     this.auth.logout();
     window.location.href = '/login';
   }
-}
-
-// Types pour le chat (à adapter selon le backend)
-export interface Cat {
-  id: string | number;
-  name: string;
-  age: number;
-  breed?: string;
-  description?: string;
-  imageUrl?: string;
 }
