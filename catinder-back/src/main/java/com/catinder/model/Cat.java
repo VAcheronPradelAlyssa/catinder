@@ -29,6 +29,8 @@ public class Cat {
 	@Column(name = "image_url")
 	private String imageUrl;
 
+	private Integer age;
+
 	// Un chat peut être swipé plusieurs fois
 	@OneToMany(mappedBy = "cat", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Swipe> swipes;

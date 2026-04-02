@@ -1,32 +1,42 @@
-# CatinderFront
+# Catinder - Frontend 🐱
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+Application de swipe de chats avec Angular 21 standalone components.
 
-## Development server
-
-To start a local development server, run:
+## Démarrage rapide
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Naviguez vers `http://127.0.0.1:4200/`
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- 🐾 Authentification (register/login) avec JWT
+- 😺 Visualisation de profils de chats avec âge et description
+- ❤️ Like/Dislike avec système de match
+- 🎨 Design cat-themed avec emoji et animations
+- 📱 Interface responsive
+
+## Architecture
+
+- **Pages**: login, register, swipe
+- **Services**: auth, cat (appels API to backend)
+- **Composants standalone** avec reactive forms
+- **Styles SCSS** avec animations et transitions
+
+## Configuration
+
+L'API backend démarre sur `http://localhost:8080` (configurable dans `environment.ts`)
+
+## Build
 
 ```bash
-ng generate component component-name
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
+Les fichiers compilés se trouvent dans `dist/`
 
 To build the project run:
 

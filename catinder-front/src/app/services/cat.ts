@@ -21,11 +21,10 @@ export class CatService {
         map(cat => ({
           id: cat.id,
           name: cat.name,
-          // Le backend ne fournit pas encore age/race, on conserve une UI stable.
-          age: 0,
+          age: cat.age ?? 0,
           breed: undefined,
           description: cat.bio ?? '',
-          imageUrl: cat.photoUrl,
+          imageUrl: this.normalizeAssetUrl(cat.photoUrl),
         })),
       );
   }
@@ -38,6 +37,15 @@ export class CatService {
       { headers: this.auth.authHeaders() },
     );
   }
+
+  // Transforme un chemin d'asset relatif en URL absolue pour Angular (`/assets/...`).
+  private normalizeAssetUrl(photoUrl?: string): string | undefined {
+    if (!photoUrl) {
+      return undefined;
+    }
+
+    return photoUrl.startsWith('/') ? photoUrl : `/${photoUrl}`;
+  }
 }
 
 interface BackendCatDto {
@@ -45,6 +53,7 @@ interface BackendCatDto {
   name: string;
   bio?: string;
   photoUrl?: string;
+  age?: number;
 }
 
 export interface SwipeResponse {

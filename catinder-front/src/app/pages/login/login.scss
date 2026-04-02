@@ -12,6 +12,29 @@
 	box-shadow: 0 24px 80px rgba(34, 34, 59, 0.12);
 	padding: 2rem;
 	backdrop-filter: blur(10px);
+	position: relative;
+	overflow: hidden;
+}
+
+.auth-card::before,
+.auth-card::after {
+	content: '';
+	position: absolute;
+	top: -0.55rem;
+	width: 1.35rem;
+	height: 1.35rem;
+	background: linear-gradient(135deg, #ff7a59, #ff4d8d);
+	transform: rotate(45deg);
+	border-radius: 0.2rem;
+	opacity: 0.9;
+}
+
+.auth-card::before {
+	left: 2rem;
+}
+
+.auth-card::after {
+	right: 2rem;
 }
 
 .auth-brand {
@@ -19,12 +42,16 @@
 	margin-bottom: 1.5rem;
 }
 
-.auth-logo {
-	width: 72px;
-	height: 72px;
-	border-radius: 50%;
-	object-fit: cover;
-	margin-bottom: 0.75rem;
+.auth-mark {
+	width: 3.9rem;
+	height: 3.9rem;
+	margin: 0 auto 0.75rem;
+	display: grid;
+	place-items: center;
+	border-radius: 1.3rem;
+	background: linear-gradient(135deg, #ff7a59, #ff4d8d);
+	box-shadow: 0 12px 24px rgba(255, 77, 141, 0.18);
+	font-size: 1.5rem;
 }
 
 .eyebrow {
@@ -127,6 +154,12 @@ input:focus {
 	.auth-card {
 		border-radius: 20px;
 		padding: 1.25rem;
+	}
+
+	.auth-card::before,
+	.auth-card::after {
+		width: 1.1rem;
+		height: 1.1rem;
 	}
 
 	h2 {

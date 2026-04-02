@@ -38,6 +38,6 @@ public class CatService {
 
     // Méthode utilitaire de mapping entité -> DTO exposé au front.
     public CatDto toDto(Cat cat) {
-        return new CatDto(cat.getId(), cat.getName(), cat.getBio(), cat.getImageUrl());
+        return new CatDto(cat.getId(), cat.getName(), cat.getBio(), cat.getImageUrl(), cat.getAge());
     }
 }

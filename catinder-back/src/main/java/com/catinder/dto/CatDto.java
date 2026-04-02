@@ -17,6 +17,8 @@ public record CatDto(
 	String bio,
 
 	@Size(max = 500)
-	String photoUrl
+	String photoUrl,
+
+	Integer age
 ) {
 }
