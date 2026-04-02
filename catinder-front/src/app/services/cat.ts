@@ -9,18 +9,34 @@ import { environment } from '../../environments/environment';
 export class CatService {
   constructor(private http: HttpClient) {}
 
-  // Récupère le prochain chat à swiper
+  // Liste cyclique des photos de profils
+  private readonly catPhotos = [
+    'assets/IMG-20221031-WA0011.jpg',
+    'assets/IMG-20221222-WA0015.jpg',
+    'assets/popotin.jpg',
+    'assets/PXL_20230301_220705296.jpg',
+  ];
+  private photoIndex = 0;
+
+  // Récupère le prochain chat à swiper (dummy cyclique)
   getNextCat(): Observable<Cat> {
-    // À brancher sur le backend réel :
-    // return this.http.get<Cat>(`${environment.API_URL}/cats/next`);
-    // Dummy pour dev :
+    const photos = this.catPhotos;
+    const idx = this.photoIndex++ % photos.length;
+    const names = ['Miaou', 'Gribouille', 'Popotin', 'Pixel'];
+    const breeds = ['Européen', 'Chartreux', 'Siamois', 'Bengal'];
+    const descs = [
+      'Un chat joueur et câlin.',
+      'Adore les caresses et les boîtes.',
+      'Toujours prêt pour une sieste.',
+      'Explorateur et gourmet.',
+    ];
     return of({
-      id: Math.random().toString(36).slice(2),
-      name: 'Miaou',
-      age: 2,
-      breed: 'Européen',
-      description: 'Un chat joueur et câlin.',
-      imageUrl: 'https://cataas.com/cat?width=300&height=300&v=' + Date.now(),
+      id: idx,
+      name: names[idx],
+      age: 1 + idx,
+      breed: breeds[idx],
+      description: descs[idx],
+      imageUrl: photos[idx],
     });
   }
 
