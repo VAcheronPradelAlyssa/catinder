@@ -1,1 +1,38 @@
-<p>swipe works!</p>
+<section class="swipe-shell">
+  <header class="swipe-header">
+    <img src="assets/logo.png" alt="Logo Catinder" class="swipe-logo" />
+    <button class="logout-btn" (click)="logout()" title="Déconnexion">⎋</button>
+  </header>
+
+  <div class="swipe-card" *ngIf="!loading() && cat(); else loadingTpl">
+    <img
+      class="cat-img"
+      [src]="cat()!.imageUrl || 'assets/logo.png'"
+      [alt]="cat()!.name"
+    />
+    <h2>{{ cat()!.name }}, {{ cat()!.age }} ans</h2>
+    <p class="cat-breed" *ngIf="cat()!.breed">{{ cat()!.breed }}</p>
+    <p class="cat-desc" *ngIf="cat()!.description">{{ cat()!.description }}</p>
+
+    <div class="swipe-actions">
+      <button class="dislike-btn" (click)="dislike()" [disabled]="feedback()">🙀 Dislike</button>
+      <button class="like-btn" (click)="like()" [disabled]="feedback()">😻 Like</button>
+    </div>
+
+    <div class="swipe-feedback" *ngIf="feedback()">
+      <span [class.match]="match()">{{ feedback() }}</span>
+    </div>
+  </div>
+
+  <ng-template #loadingTpl>
+    <div class="swipe-loading">
+      <span class="spinner"></span>
+      <p>Chargement d’un chat...</p>
+    </div>
+  </ng-template>
+
+  <div class="swipe-error" *ngIf="error()">
+    {{ error() }}
+    <button (click)="loadNextCat()">Réessayer</button>
+  </div>
+</section>

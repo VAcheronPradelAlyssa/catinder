@@ -1,0 +1,167 @@
+.swipe-shell {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f7f7fa;
+  padding: 2rem 1rem;
+}
+
+.swipe-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.swipe-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #ff4d8d;
+  cursor: pointer;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #ffe3ed;
+}
+
+.swipe-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(34,34,59,0.10);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.cat-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 12px rgba(34,34,59,0.10);
+}
+
+h2 {
+  margin: 0.5rem 0 0.2rem 0;
+  font-size: 1.5rem;
+  color: #22223b;
+}
+
+.cat-breed {
+  color: #ff4d8d;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.cat-desc {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.swipe-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.like-btn, .dislike-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.like-btn {
+  background: linear-gradient(90deg, #ff7a59, #ff4d8d);
+  color: #fff;
+}
+.like-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.dislike-btn {
+  background: #f7f7fa;
+  color: #ff4d8d;
+  border: 1.5px solid #ff4d8d;
+}
+.dislike-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.swipe-feedback {
+  margin-top: 0.7rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ff4d8d;
+  .match {
+    color: #2ecc40;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 8px #baffc9;
+  }
+}
+
+.swipe-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  color: #888;
+  font-size: 1.1rem;
+}
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid #ff4d8d;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.swipe-error {
+  margin-top: 2rem;
+  color: #c53030;
+  background: #fff0f3;
+  border: 1px solid #ffd6e0;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.swipe-error button {
+  margin-top: 0.7rem;
+  background: #ff4d8d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
