@@ -17,6 +17,7 @@ export const routes: Routes = [
   },
   {
     path: 'swipe',
+    canActivate: [() => import('./guards/auth.guard').then(m => m.authGuard)],
     loadComponent: () => import('./pages/swipe/swipe').then(m => m.Swipe),
   },
   {
